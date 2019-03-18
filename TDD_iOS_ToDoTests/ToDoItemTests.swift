@@ -66,26 +66,26 @@ class ToDoItemTests: XCTestCase {
         let item = ToDoItem(title: "", location: location)
         
         //assert
-        XCTAssertEqual(item.location?.name, location.name, "should set location")
+        XCTAssertEqual(item.location, location, "should set location")
     }
   
     // MARK: Equatable tests
     func test_EqualItems_AreEqual() {
         //arrange
-        let first = ToDoItem(title: "Item1",
+        let firstItem = ToDoItem(title: "Item1",
                              itemDescription: "description",
                              timeStamp: 1.0,
                              location: Location(name: "location", coordinates: CLLocationCoordinate2D(latitude: 1.0, longitude: 2.0))
         )
         
-        let second = ToDoItem(title: "Item1",
+        let secondItem = ToDoItem(title: "Item1",
                               itemDescription: "description",
                               timeStamp: 1.0,
                               location: Location(name: "location", coordinates: CLLocationCoordinate2D(latitude: 1.0, longitude: 2.0))
         )
         
         //act & assert
-        XCTAssertEqual(first, second)
+        XCTAssertEqual(firstItem, secondItem)
     }
     
     func test_Items_WhenLocationsDiffer_AreNotEqual() {
@@ -100,8 +100,8 @@ class ToDoItemTests: XCTestCase {
     }
     
     func test_Items_WhenOneLocationIsNil_AreNotEqual() {
-        var first = ToDoItem(title: "", location: Location(name: "Foo"))
         
+        var first = ToDoItem(title: "", location: Location(name: "Foo"))
         var second = ToDoItem(title: "", location: nil)        
         XCTAssertNotEqual(first, second)
         
