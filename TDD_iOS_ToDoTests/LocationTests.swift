@@ -98,6 +98,7 @@ class LocationTests: XCTestCase {
     
     func test_Locations_WhenOnlyOneHasCoordinate_AreNotEqual() {
         assertLocationNotEqualWith(firstName: "Foo", firstLatLong: (0.0, 0.0), secondName: "Foo", secondLatLong: nil)
+        assertLocationNotEqualWith(firstName: "Foo", firstLatLong: nil, secondName: "Foo", secondLatLong: (0.0, 0.0))
     }
     
     func test_Locations_WhenNamesDiffer_AreNotEqual() {
@@ -106,5 +107,4 @@ class LocationTests: XCTestCase {
                                    secondName: "Bar",
                                    secondLatLong: nil)
     }
-
 }

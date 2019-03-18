@@ -31,7 +31,7 @@ class ItemManagerTests: XCTestCase {
         XCTAssertEqual(sut.doneCount, 0)
     }
     
-    func test_AddCount_IncreasesToDoCountByOne() {
+    func test_Add_IncreasesToDoCountByOne() {
         let oldCount = sut.toDoCount
         
         sut.add(ToDoItem(title: ""))
@@ -86,7 +86,6 @@ class ItemManagerTests: XCTestCase {
         
         XCTAssertEqual(checkedItem.title, item.title, "")
     }
-    
     
     func test_RemoveAll_MakesCountsZero() {
         
