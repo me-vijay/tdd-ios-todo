@@ -59,7 +59,19 @@ class ItemManagerTests: XCTestCase {
         XCTAssertEqual(sut.toDoCount, oldToDoCount-1, "todo items count is invalid")
     }
     
-    func test_CheckItemAt_RemovesCorrectItemFromToDoItems() {
+    func test_UncheckItemAt_ChangesCount() {
+        sut.add(ToDoItem(title: ""))
+        _ = sut.checkItem(at: 0)
+        let oldDoneCount = sut.doneCount
+        let oldToDoCount = sut.toDoCount
+        
+        _ = sut.uncheckItem(at: 0)
+        
+        XCTAssertEqual(sut.doneCount, oldDoneCount-1, "checked items count is invalid")
+        XCTAssertEqual(sut.toDoCount, oldToDoCount+1, "todo items count is invalid")
+    }
+    
+    func test_CheckItemAt_MovesCorrectItem_FromToDoItems_ToDoneItems() {
         //arrange
         let firstItem = ToDoItem(title: "First")
         let secondItem = ToDoItem(title: "Second")
@@ -75,6 +87,26 @@ class ItemManagerTests: XCTestCase {
         XCTAssertEqual(sut.item(at: 0).title, secondItem.title, "incorrect next todo item")
         XCTAssertEqual(sut.doneCount, oldDoneCount+1, "checked item not added to done items")
         XCTAssertEqual(sut.doneItem(at: sut.doneCount-1).title, firstItem.title, "incorrect checked item appended to done items")
+    }
+    
+    func test_UncheckItemAt_MovesCorrectItem_FromDoneItems_ToToDoItems() {
+        //arrange
+        let firstItem = ToDoItem(title: "First")
+        let secondItem = ToDoItem(title: "Second")
+        sut.add(firstItem)
+        sut.add(secondItem)
+        
+        _ = sut.checkItem(at: 0)
+        let oldDoneCount = sut.doneCount
+
+        //act
+        let uncheckedItem = sut.uncheckItem(at: 0)
+        
+        //assert
+        XCTAssertEqual(uncheckedItem.title, firstItem.title, "incorrect todo item removed")
+        XCTAssertEqual(sut.item(at: sut.toDoCount-1).title, firstItem.title, "incorrect next todo item")
+        XCTAssertEqual(sut.doneCount, oldDoneCount-1, "checked item not added to done items")
+        //XCTAssertEqual(sut.doneItem(at: 0).title, firstItem.title, "incorrect checked item appended to done items")
     }
     
     func test_DoneItemAt_ReturnsCheckedItem() {
