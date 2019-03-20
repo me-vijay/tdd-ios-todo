@@ -34,7 +34,14 @@ class ItemManager {
         
         return item
     }
-    
+
+    func uncheckItem(at index:Int) -> ToDoItem {
+        let item = doneItems.remove(at: index)
+        toDoItems.append(item)
+        
+        return item
+    }
+
     func removeAll() {
         toDoItems.removeAll()
         doneItems.removeAll()
