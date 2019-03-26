@@ -56,12 +56,12 @@ class InputViewControllerTests: XCTestCase {
     func test_Save_UsesGeoCoderToGetCoordinatesFromAddress() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
-        
-        let timeStamp = 999999.0
-        let date = Date(timeIntervalSince1970: timeStamp)
+        let dateString = "03/21/2019"
+        let date = dateFormatter.date(from: dateString)
+        let timeStamp = date?.timeIntervalSince1970
         
         sut.titleTextField.text = "Foo"
-        sut.dateTextField.text = dateFormatter.string(from: date)
+        sut.dateTextField.text = dateFormatter.string(from: (date)!)
         sut.locationTextField.text = "Bar"
         sut.addressTextField.text = "Infinite Loop 1, Cupertino"
         sut.descriptionTextField.text = "Foo Bar"
@@ -79,8 +79,8 @@ class InputViewControllerTests: XCTestCase {
         //call sut completion handler, which will create the ToDoItem with returned placemark's coordinates
         mockGeocoder.completionHandler?([placemark], nil)
         
+        let testItem = ToDoItem(title: "Foo", itemDescription: "Foo Bar", timeStamp: timeStamp, location: Location(name: "Bar", coordinates: placemark.location?.coordinate))
         let item = sut.itemManager?.item(at: 0)
-        let testItem = ToDoItem(title: "Foo", itemDescription: "Foo Bar", timeStamp: nil, location: Location(name: "Bar", coordinates: placemark.location?.coordinate))
         
         XCTAssertEqual(item, testItem)
     }

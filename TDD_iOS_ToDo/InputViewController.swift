@@ -47,7 +47,7 @@ class InputViewController: UIViewController {
                 geocoder.geocodeAddressString(address) {[unowned self] (places, error) in
                     let placemark = places?.first
                     
-                    let item = ToDoItem(title: titleString, itemDescription: descriptionString, timeStamp: nil, location: Location(name: locationName, coordinates: placemark?.location?.coordinate))
+                    let item = ToDoItem(title: titleString, itemDescription: descriptionString, timeStamp: date?.timeIntervalSince1970, location: Location(name: locationName, coordinates: placemark?.location?.coordinate))
                     
                     self.itemManager?.add(item)
                 }
