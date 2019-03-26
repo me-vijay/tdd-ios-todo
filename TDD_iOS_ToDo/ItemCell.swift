@@ -9,7 +9,17 @@
 import UIKit
 
 class ItemCell: UITableViewCell {
-
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    
+    lazy var dateFormatter : DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        return dateFormatter
+    }()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,6 +31,20 @@ class ItemCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func configCell(with item: ToDoItem) {
+    func configCell(with item: ToDoItem, checked: Bool = false) {
+        if checked {
+            let attributedString = NSAttributedString(string: item.title, attributes: [NSAttributedStringKey.strikethroughStyle : NSUnderlineStyle.styleSingle.rawValue])
+            
+            titleLabel.attributedText = attributedString
+            dateLabel.text = nil
+            locationLabel.text = nil
+        } else {
+            titleLabel.text = item.title
+            locationLabel.text = item.location?.name ?? ""
+            if let timeStamp = item.timeStamp {
+            let date = Date(timeIntervalSince1970: timeStamp)
+            dateLabel.text = dateFormatter.string(from: date)
+            }
+        }
     }
 }
