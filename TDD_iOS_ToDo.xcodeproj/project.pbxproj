@@ -28,6 +28,9 @@
 		20B08BA7223FD190000F4143 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B08BA6223FD190000F4143 /* ItemCell.swift */; };
 		20BE8BC92248E68F002B23E7 /* InputViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BE8BC82248E68F002B23E7 /* InputViewControllerTests.swift */; };
 		20BE8BCB2248E6CE002B23E7 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BE8BCA2248E6CE002B23E7 /* InputViewController.swift */; };
+		20D2BF6A224CEA2F0095B462 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D2BF69224CEA2F0095B462 /* APIClient.swift */; };
+		20D2BF6C224CEABA0095B462 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D2BF6B224CEABA0095B462 /* Token.swift */; };
+		20D2BF6E224CED900095B462 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D2BF6D224CED900095B462 /* APIClientTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +70,9 @@
 		20B08BA6223FD190000F4143 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		20BE8BC82248E68F002B23E7 /* InputViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewControllerTests.swift; sourceTree = "<group>"; };
 		20BE8BCA2248E6CE002B23E7 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
+		20D2BF69224CEA2F0095B462 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		20D2BF6B224CEABA0095B462 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		20D2BF6D224CED900095B462 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,18 +122,47 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2090DA9421FB108A00C484A4 /* TDD_iOS_ToDoTests */ = {
+		2083BB9C224A8BB0006E6F6E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2090DA9621FB108A00C484A4 /* ToDoTests.swift */,
-				2090DA9821FB108A00C484A4 /* ToDoItemTests.swift */,
-				2090DA9521FB108A00C484A4 /* LocationTests.swift */,
+				202FA47C21FB3E5500CC6C0C /* ItemListViewController.swift */,
+				20AAFC492247A79600578109 /* DetailViewController.swift */,
+				20BE8BCA2248E6CE002B23E7 /* InputViewController.swift */,
+				202FA47E21FB41F200CC6C0C /* ItemListDataProvider.swift */,
+				20B08BA6223FD190000F4143 /* ItemCell.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2083BB9D224A8BD8006E6F6E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
 				2090DA9721FB108A00C484A4 /* ItemManagerTests.swift */,
 				202FA47A21FB3E0700CC6C0C /* ItemListViewControllerTests.swift */,
 				20B08BA4223FB273000F4143 /* ItemListDataProviderTests.swift */,
 				20AAFC452246A8BA00578109 /* ItemCellTests.swift */,
 				20AAFC472247A6F600578109 /* DetailViewControllerTests.swift */,
 				20BE8BC82248E68F002B23E7 /* InputViewControllerTests.swift */,
+				20D2BF6D224CED900095B462 /* APIClientTests.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2083BB9E224A8BE5006E6F6E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2090DA9621FB108A00C484A4 /* ToDoTests.swift */,
+				2090DA9821FB108A00C484A4 /* ToDoItemTests.swift */,
+				2090DA9521FB108A00C484A4 /* LocationTests.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2090DA9421FB108A00C484A4 /* TDD_iOS_ToDoTests */ = {
+			isa = PBXGroup;
+			children = (
+				2083BB9E224A8BE5006E6F6E /* Model */,
+				2083BB9D224A8BD8006E6F6E /* Controller */,
 				2090DA9921FB108A00C484A4 /* Info.plist */,
 			);
 			path = TDD_iOS_ToDoTests;
@@ -137,11 +172,9 @@
 			isa = PBXGroup;
 			children = (
 				2090DAA421FB108A00C484A4 /* AppDelegate.swift */,
-				202FA47C21FB3E5500CC6C0C /* ItemListViewController.swift */,
-				20AAFC492247A79600578109 /* DetailViewController.swift */,
-				20BE8BCA2248E6CE002B23E7 /* InputViewController.swift */,
-				202FA47E21FB41F200CC6C0C /* ItemListDataProvider.swift */,
-				20B08BA6223FD190000F4143 /* ItemCell.swift */,
+				20D2BF69224CEA2F0095B462 /* APIClient.swift */,
+				20D2BF6B224CEABA0095B462 /* Token.swift */,
+				2083BB9C224A8BB0006E6F6E /* Controller */,
 				202FA47921FB3B2A00CC6C0C /* Model */,
 				2090DA9F21FB108A00C484A4 /* Assets.xcassets */,
 				2090DAA021FB108A00C484A4 /* LaunchScreen.storyboard */,
@@ -263,9 +296,11 @@
 				20BE8BCB2248E6CE002B23E7 /* InputViewController.swift in Sources */,
 				2090DAAD21FB108A00C484A4 /* ToDoItem.swift in Sources */,
 				202FA47F21FB41F200CC6C0C /* ItemListDataProvider.swift in Sources */,
+				20D2BF6A224CEA2F0095B462 /* APIClient.swift in Sources */,
 				2090DAB221FB108A00C484A4 /* AppDelegate.swift in Sources */,
 				2090DAAB21FB108A00C484A4 /* Location.swift in Sources */,
 				20B08BA7223FD190000F4143 /* ItemCell.swift in Sources */,
+				20D2BF6C224CEABA0095B462 /* Token.swift in Sources */,
 				2090DAAE21FB108A00C484A4 /* ItemManager.swift in Sources */,
 				202FA47D21FB3E5500CC6C0C /* ItemListViewController.swift in Sources */,
 				20AAFC4A2247A79600578109 /* DetailViewController.swift in Sources */,
@@ -279,6 +314,7 @@
 				202FA47B21FB3E0700CC6C0C /* ItemListViewControllerTests.swift in Sources */,
 				202FA47521FB169D00CC6C0C /* LocationTests.swift in Sources */,
 				202FA47621FB169D00CC6C0C /* ToDoTests.swift in Sources */,
+				20D2BF6E224CED900095B462 /* APIClientTests.swift in Sources */,
 				20B08BA5223FB273000F4143 /* ItemListDataProviderTests.swift in Sources */,
 				20AAFC462246A8BA00578109 /* ItemCellTests.swift in Sources */,
 				202FA47721FB169D00CC6C0C /* ItemManagerTests.swift in Sources */,
