@@ -32,7 +32,7 @@ class InputViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    func save() {
+    @IBAction func save() {
         guard let titleString = titleTextField.text, titleString.count > 0 else { return }
         
         let date: Date?
@@ -52,7 +52,11 @@ class InputViewController: UIViewController {
                     self.itemManager?.add(item)
                 }
             }
-        }        
+        } else {
+            let item = ToDoItem(title: titleString, itemDescription: descriptionString, timeStamp: date?.timeIntervalSince1970, location: nil)
+            self.itemManager?.add(item)
+        }
+        self.dismiss(animated: true, completion: nil)
     }
 
     /*

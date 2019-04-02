@@ -46,4 +46,77 @@ class ItemListViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.tableView.dataSource as? ItemListDataProvider,
                        sut.tableView.delegate as? ItemListDataProvider)
     }
+    
+    func test_ItemListViewController_HasAddBarButtonWithSelfAsTarget() {
+        let target = sut.navigationItem.rightBarButtonItem?.target
+        
+        XCTAssertEqual(target as? UIViewController, sut)
+    }
+    
+    func test_AddItem_PresentsInputViewController() {
+        XCTAssertNil(sut.presentedViewController)
+        
+        guard let addButton = sut.navigationItem.rightBarButtonItem else { XCTFail(); return }
+        guard let action = addButton.action else { XCTFail(); return }
+        
+        //we have just instantiated the view controller, but it is not shown anywhere, so can't present a new controller.
+        //add the view to view hierarchy by setting the view controller as our root view
+        UIApplication.shared.keyWindow?.rootViewController = sut
+        
+        sut.performSelector(onMainThread: action, with: addButton, waitUntilDone: true)
+        
+        XCTAssertNotNil(sut.presentedViewController)
+        XCTAssertTrue(sut.presentedViewController is InputViewController)
+        
+        let inputViewController = sut.presentedViewController as! InputViewController
+        XCTAssertNotNil(inputViewController.titleTextField)
+    }
+    
+    //To be able to add items to the list, ItemListViewController and InputViewController need to share the same item manager.
+    func testItemListVC_SharesItemManagerWithInputVC() {
+        guard let addButton = sut.navigationItem.rightBarButtonItem else { XCTFail(); return }
+        guard let action = addButton.action else { XCTFail(); return }
+        
+        //we have just instantiated the view controller, but it is not shown anywhere, so can't present a new controller.
+        //add the view to view hierarchy by setting the view controller as our root view
+        UIApplication.shared.keyWindow?.rootViewController = sut
+        
+        sut.performSelector(onMainThread: action, with: addButton, waitUntilDone: true)
+        
+        guard let inputViewController = sut.presentedViewController as? InputViewController else { XCTFail(); return }
+        guard let inputItemManager = inputViewController.itemManager else { XCTFail(); return }
+        
+        
+        XCTAssertTrue(sut.itemManager === inputItemManager)
+    }
+    
+    func test_ViewDidLoad_SetsItemManagerToDataProvider() {
+        //load view because dataprovider is set from UI(iboutlet)
+        sut.loadViewIfNeeded()
+        XCTAssertTrue(sut.itemManager === sut.dataProvider.itemManager)
+    }
+    
+    func test_ViewWillAppear_ReloadsTableView() {
+        //load view to initialize datasource
+        sut.loadViewIfNeeded()
+        
+        let mockTableView = MockTableView()
+        sut.tableView = mockTableView
+        
+        sut.beginAppearanceTransition(true, animated: true)
+        sut.endAppearanceTransition()
+        
+        XCTAssertTrue(mockTableView.reloadDataWasCalled)
+    }
+}
+
+
+extension ItemListViewControllerTests {
+    class MockTableView: UITableView {
+        var reloadDataWasCalled = false
+        
+        override func reloadData() {
+            reloadDataWasCalled = true
+        }
+    }
 }

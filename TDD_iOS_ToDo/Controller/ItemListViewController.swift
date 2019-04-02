@@ -10,13 +10,20 @@ import UIKit
 
 class ItemListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet var dataProvider: (UITableViewDataSource & UITableViewDelegate)!
+    @IBOutlet var dataProvider: (UITableViewDataSource & UITableViewDelegate & ItemManagerSettable)!
+    
+    let itemManager = ItemManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.dataSource = dataProvider
         tableView.delegate = dataProvider
+        dataProvider.itemManager = itemManager
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,4 +42,12 @@ class ItemListViewController: UIViewController {
     }
     */
 
+    @IBAction func addItem(_ sender: UIBarButtonItem) {
+        if let nextVC = storyboard?.instantiateViewController(withIdentifier: "InputViewController") as? InputViewController {
+            nextVC.itemManager = itemManager
+            present(nextVC, animated: true) {
+                
+            }
+        }
+    }
 }

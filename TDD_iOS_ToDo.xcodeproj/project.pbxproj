@@ -21,6 +21,7 @@
 		2090DAB021FB108A00C484A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2090DAA021FB108A00C484A4 /* LaunchScreen.storyboard */; };
 		2090DAB121FB108A00C484A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2090DAA221FB108A00C484A4 /* Main.storyboard */; };
 		2090DAB221FB108A00C484A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2090DAA421FB108A00C484A4 /* AppDelegate.swift */; };
+		20A0C7622252375800CD0669 /* StoryboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A0C7612252375800CD0669 /* StoryboardTests.swift */; };
 		20AAFC462246A8BA00578109 /* ItemCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AAFC452246A8BA00578109 /* ItemCellTests.swift */; };
 		20AAFC482247A6F600578109 /* DetailViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AAFC472247A6F600578109 /* DetailViewControllerTests.swift */; };
 		20AAFC4A2247A79600578109 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AAFC492247A79600578109 /* DetailViewController.swift */; };
@@ -63,6 +64,7 @@
 		2090DAA421FB108A00C484A4 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2090DAA521FB108A00C484A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2090DAB521FB10DC00C484A4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		20A0C7612252375800CD0669 /* StoryboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardTests.swift; sourceTree = "<group>"; };
 		20AAFC452246A8BA00578109 /* ItemCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCellTests.swift; sourceTree = "<group>"; };
 		20AAFC472247A6F600578109 /* DetailViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerTests.swift; sourceTree = "<group>"; };
 		20AAFC492247A79600578109 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				2083BB9E224A8BE5006E6F6E /* Model */,
 				2083BB9D224A8BD8006E6F6E /* Controller */,
 				2090DA9921FB108A00C484A4 /* Info.plist */,
+				20A0C7612252375800CD0669 /* StoryboardTests.swift */,
 			);
 			path = TDD_iOS_ToDoTests;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 			files = (
 				202FA47B21FB3E0700CC6C0C /* ItemListViewControllerTests.swift in Sources */,
 				202FA47521FB169D00CC6C0C /* LocationTests.swift in Sources */,
+				20A0C7622252375800CD0669 /* StoryboardTests.swift in Sources */,
 				202FA47621FB169D00CC6C0C /* ToDoTests.swift in Sources */,
 				20D2BF6E224CED900095B462 /* APIClientTests.swift in Sources */,
 				20B08BA5223FB273000F4143 /* ItemListDataProviderTests.swift in Sources */,
