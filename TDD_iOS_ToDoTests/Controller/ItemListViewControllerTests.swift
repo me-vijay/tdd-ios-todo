@@ -53,9 +53,7 @@ class ItemListViewControllerTests: XCTestCase {
         XCTAssertEqual(target as? UIViewController, sut)
     }
     
-    func test_AddItem_PresentsInputViewController() {
-        XCTAssertNil(sut.presentedViewController)
-        
+    func performAddButtonAction() {
         guard let addButton = sut.navigationItem.rightBarButtonItem else { XCTFail(); return }
         guard let action = addButton.action else { XCTFail(); return }
         
@@ -64,6 +62,11 @@ class ItemListViewControllerTests: XCTestCase {
         UIApplication.shared.keyWindow?.rootViewController = sut
         
         sut.performSelector(onMainThread: action, with: addButton, waitUntilDone: true)
+    }
+    
+    func test_AddItem_PresentsInputViewController() {
+        XCTAssertNil(sut.presentedViewController)
+        performAddButtonAction()
         
         XCTAssertNotNil(sut.presentedViewController)
         XCTAssertTrue(sut.presentedViewController is InputViewController)
@@ -74,18 +77,9 @@ class ItemListViewControllerTests: XCTestCase {
     
     //To be able to add items to the list, ItemListViewController and InputViewController need to share the same item manager.
     func testItemListVC_SharesItemManagerWithInputVC() {
-        guard let addButton = sut.navigationItem.rightBarButtonItem else { XCTFail(); return }
-        guard let action = addButton.action else { XCTFail(); return }
-        
-        //we have just instantiated the view controller, but it is not shown anywhere, so can't present a new controller.
-        //add the view to view hierarchy by setting the view controller as our root view
-        UIApplication.shared.keyWindow?.rootViewController = sut
-        
-        sut.performSelector(onMainThread: action, with: addButton, waitUntilDone: true)
-        
+        performAddButtonAction()
         guard let inputViewController = sut.presentedViewController as? InputViewController else { XCTFail(); return }
         guard let inputItemManager = inputViewController.itemManager else { XCTFail(); return }
-        
         
         XCTAssertTrue(sut.itemManager === inputItemManager)
     }
