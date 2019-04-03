@@ -17,7 +17,7 @@ class ItemListViewControllerTests: XCTestCase {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyBoard.instantiateViewController(withIdentifier: "ItemListViewController")
-        sut = viewController as! ItemListViewController
+        sut = (viewController as! ItemListViewController)
     }
     
     
@@ -57,7 +57,7 @@ class ItemListViewControllerTests: XCTestCase {
         guard let addButton = sut.navigationItem.rightBarButtonItem else { XCTFail(); return }
         guard let action = addButton.action else { XCTFail(); return }
         
-        //we have just instantiated the view controller, but it is not shown anywhere, so can't present a new controller.
+        //we have just instantiated the view controller in setup, but it is not shown anywhere, so can't present a new controller.
         //add the view to view hierarchy by setting the view controller as our root view
         UIApplication.shared.keyWindow?.rootViewController = sut
         
@@ -102,6 +102,27 @@ class ItemListViewControllerTests: XCTestCase {
         
         XCTAssertTrue(mockTableView.reloadDataWasCalled)
     }
+    
+    func test_ItemSelectedNotification_PushesDetailViewController() {
+        
+        let mockNavController = MockNavigationController(rootViewController: sut)
+        UIApplication.shared.keyWindow?.rootViewController = mockNavController
+        
+        sut.loadViewIfNeeded()
+        let item = ToDoItem(title: "test item 1")
+        sut.itemManager.add(item)
+        
+        NotificationCenter.default.post(Notification(name: NSNotification.Name("ItemSelectedNotification"), object: self, userInfo: ["index" : 0]))
+        
+        guard let detailVC = mockNavController.lastPushedViewController as? DetailViewController else { XCTFail(); return }
+        guard let detailItemManager = detailVC.itemInfo?.0 else { XCTFail(); return }
+        guard let itemIndex = detailVC.itemInfo?.1 else { XCTFail(); return }
+        
+        detailVC.loadViewIfNeeded()
+        XCTAssertNotNil(detailVC.titleLabel)
+        XCTAssertTrue(detailItemManager === sut.itemManager)
+        XCTAssertTrue(itemIndex == 0)
+    }
 }
 
 
@@ -111,6 +132,15 @@ extension ItemListViewControllerTests {
         
         override func reloadData() {
             reloadDataWasCalled = true
+        }
+    }
+    
+    class MockNavigationController: UINavigationController {
+        var lastPushedViewController: UIViewController?
+        
+        override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+            lastPushedViewController = viewController
+            super.pushViewController(viewController, animated: animated)
         }
     }
 }
