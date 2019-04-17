@@ -33,19 +33,23 @@ class DetailViewController: UIViewController {
         super.viewWillAppear(animated)
         
         guard let itemDetail = itemInfo else { return }
-        let item = itemDetail.0.item(at: itemDetail.1)
-        self.titleLabel.text = item.title
-        self.descriptionLabel.text = item.itemDescription
-        self.locationLabel.text = item.location?.name
+        let index = itemDetail.1
         
-        if let timeStamp = item.timeStamp {
-            let date = Date(timeIntervalSince1970: timeStamp)
-            self.dateLabel.text = dateFormatter.string(from: date)
-        }
-        
-        if let coordinates = item.location?.coordinates {
-            let region = MKCoordinateRegionMakeWithDistance(coordinates, 100, 100)
-            mapView.region = region
+        if index >= 0, index < itemDetail.0.toDoCount {
+            let item = itemDetail.0.item(at: itemDetail.1)
+            self.titleLabel.text = item.title
+            self.descriptionLabel.text = item.itemDescription
+            self.locationLabel.text = item.location?.name
+            
+            if let timeStamp = item.timeStamp {
+                let date = Date(timeIntervalSince1970: timeStamp)
+                self.dateLabel.text = dateFormatter.string(from: date)
+            }
+            
+            if let coordinates = item.location?.coordinates {
+                let region = MKCoordinateRegionMakeWithDistance(coordinates, 100, 100)
+                mapView.region = region
+            }
         }
     }
     

@@ -29,6 +29,7 @@ class ItemListDataProviderTests: XCTestCase {
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut.itemManager?.removeAll()
     }
     
     func test_NumberOfSections_IsTwo() {
@@ -149,7 +150,6 @@ class ItemListDataProviderTests: XCTestCase {
         tableView.delegate?.tableView!(tableView, didSelectRowAt: IndexPath(row: 0, section: 0))
         waitForExpectations(timeout: 3, handler: nil)
     }
-
 }
 
 extension ItemListDataProviderTests {

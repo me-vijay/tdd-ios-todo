@@ -14,6 +14,27 @@ struct ToDoItem : Equatable {
     let timeStamp: Double?
     let location: Location?
     
+    private let titleKey = "titleKey"
+    private let itemDescriptionKey = "itemDescriptionKey"
+    private let timeStampKey = "timeStampKey"
+    private let locationKey = "locationKey"
+    
+    var plistDictionary: [String:Any] {
+        var dict = [String:Any]()
+        dict[titleKey] = title
+        if let itemDesc = itemDescription {
+            dict[itemDescriptionKey] = itemDesc
+        }
+        if let tmStamp = timeStamp {
+            dict[timeStampKey] = tmStamp
+        }
+        if let loc = location {
+            let locationDict = loc.plistDictionary
+            dict[locationKey] = locationDict
+        }
+        return dict
+    }
+    
     init(title: String,
          itemDescription: String? = nil,
          timeStamp: Double? = nil,
@@ -22,6 +43,18 @@ struct ToDoItem : Equatable {
         self.itemDescription = itemDescription
         self.timeStamp = timeStamp
         self.location = location
+    }
+    
+    init?(dict: [String:Any]) {
+        guard let ttl = dict[titleKey] as? String else { return nil }
+        title = ttl
+        itemDescription = dict[itemDescriptionKey] as? String
+        timeStamp = dict[timeStampKey] as? Double
+        if let loc = dict[locationKey] as? [String:Any]  {
+            location = Location(dictionary: loc)
+        } else {
+            location = nil
+        }
     }
     
     public static func == (lhs: ToDoItem, rhs: ToDoItem) -> Bool {

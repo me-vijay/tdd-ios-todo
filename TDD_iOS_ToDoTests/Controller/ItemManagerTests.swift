@@ -19,6 +19,7 @@ class ItemManagerTests: XCTestCase {
     }
     
     override func tearDown() {
+        sut.removeAll()
         sut = nil
         super.tearDown()
     }
@@ -151,5 +152,27 @@ class ItemManagerTests: XCTestCase {
         ))
         XCTAssertEqual(sut.toDoCount, 1)
 
+    }
+    
+    func test_ToDoItemsGetSerialized() {
+        var itemManager: ItemManager? = ItemManager()
+        
+        let first = ToDoItem(title: "Item1")
+        itemManager!.add(first)
+        
+        let second = ToDoItem(title: "Item2")
+        itemManager!.add(second)
+        
+        NotificationCenter.default.post(name: .UIApplicationWillResignActive, object: nil, userInfo: nil)
+        
+        itemManager = nil
+        XCTAssertNil(itemManager)
+        
+        
+        itemManager = ItemManager()
+        
+        XCTAssertEqual(itemManager?.toDoCount, 2)
+        XCTAssertEqual(first, itemManager?.item(at: 0))
+        XCTAssertEqual(second, itemManager?.item(at: 1))
     }
 }
